@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Birthday Surprise</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:black;
+overflow:hidden;
+color:white;
+}
+
+/* start screen */
+
+#start{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ff4b6e,#ff9a9e);
+text-align:center;
+}
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:10px;
+background:white;
+color:#ff3c6f;
+font-size:18px;
+cursor:pointer;
+margin-top:20px;
+}
+
+/* slideshow */
+
+#video{
+display:none;
+height:100vh;
+width:100vw;
+position:relative;
+}
+
+#photo{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+transition:opacity 1s ease;
+}
+
+/* message text */
+
+#message{
+position:absolute;
+bottom:120px;
+width:100%;
+text-align:center;
+font-size:34px;
+font-weight:bold;
+text-shadow:0 0 20px black;
+}
+
+/* final button */
+
+#finalBtn{
+position:absolute;
+bottom:40px;
+left:50%;
+transform:translateX(-50%);
+display:none;
+}
+
+/* final page */
+
+#final{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+background:#111;
+}
+
+/* hearts */
+
+.heart{
+position:absolute;
+color:red;
+font-size:24px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1}
+100%{transform:translateY(-900px);opacity:0}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- START PAGE -->
+
+<div id="start">
+
+<h1>Happy Birthday</h1>
+<h2>Sarah ❤️</h2>
+
+<button onclick="startVideo()">Start Surprise</button>
+
+</div>
+
+
+<!-- VIDEO SLIDES -->
+
+<div id="video">
+
+<img id="photo" src="photo1.jpg">
+
+<div id="message"></div>
+
+<button id="finalBtn" onclick="showFinal()">Final Surprise 🎁</button>
+
+</div>
+
+
+<!-- FINAL PAGE -->
+
+<div id="final">
+
+<h1>🎉 Happy Birthday 🎉</h1>
+<h2>Sarah ❤️</h2>
+
+<p>You are the most special person in my life.</p>
+<p>May your life always be full of happiness and love.</p>
+
+</div>
+
+
+<script>
+
+/* photos */
+
+let photos=[
+"photo1.jpg",
+"photo2.jpg",
+"photo3.jpg",
+"photo4.jpg",
+"photo5.jpg"
+];
+
+/* messages for each photo */
+
+let messages=[
+"The day I met you was special ❤️",
+"Every moment with you is beautiful",
+"You make my life brighter",
+"Thank you for being amazing",
+"I hope your birthday is as wonderful as you"
+];
+
+let index=0;
+
+function startVideo(){
+
+document.getElementById("start").style.display="none";
+document.getElementById("video").style.display="block";
+
+document.getElementById("message").innerText=messages[0];
+
+setInterval(nextSlide,4000);
+
+}
+
+/* change slide */
+
+function nextSlide(){
+
+index++;
+
+if(index<photos.length){
+
+document.getElementById("photo").src=photos[index];
+document.getElementById("message").innerText=messages[index];
+
+}else{
+
+document.getElementById("finalBtn").style.display="block";
+
+}
+
+}
+
+/* final page */
+
+function showFinal(){
+
+document.getElementById("video").style.display="none";
+document.getElementById("final").style.display="flex";
+
+}
+
+/* hearts animation */
+
+function createHeart(){
+
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),6000);
+
+}
+
+setInterval(createHeart,400);
+
+</script>
+
+</body>
+</html>
